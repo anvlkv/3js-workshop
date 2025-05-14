@@ -1,0 +1,21 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    "dsznajder.es7-react-js-snippets",
+    "antfu.vite",
+    "slevesque.shader",
+    "steoates.autoimport",
+    "christian-kohler.path-intellisense",
+    "vincaslt.highlight-matching-tag",
+    "naumovs.color-highlight",
+    "oderwat.indent-rainbow",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "streetsidesoftware.code-spell-checker",
+    "usernamehw.errorlens",
+    "yoavbls.pretty-ts-errors"
+  ]
+}
