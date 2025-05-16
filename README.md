@@ -149,6 +149,10 @@
   - [React Three Fiber примеры](https://docs.pmnd.rs/react-three-fiber/getting-started/examples)
   - [Drei - полезные хелперы](https://github.com/pmndrs/drei)
 
+## Аттрибуции
+
+Использованы текстуры планет [Solar System Scope](https://www.solarsystemscope.com/textures/) - CC-BY 4.0
+
 ---
 
 © 2024 Воркшоп "Полет в космос" | Все права защищены | БФ "Антон тут рядом"
