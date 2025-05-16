@@ -1,41 +1,47 @@
-import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Stars } from '@react-three/drei';
+import React, { Suspense, useCallback, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import Scene from './components/Scene';
+import Instructions from './components/Instructions';
+import RestartButton from './components/RestartButton';
 import './App.css';
 
-function Planet() {
-  const planetRef = useRef();
-  
-  useFrame((state, delta) => {
-    // Вращение планеты вокруг своей оси
-    planetRef.current.rotation.y += delta * 0.1;
-  });
-  
+function Loader() {
   return (
-    <mesh ref={planetRef}>
-      <sphereGeometry args={[2, 64, 64]} />
-      <meshStandardMaterial color="#3080ff" />
-    </mesh>
+    <div className="loader">
+      <p>Загрузка...</p>
+    </div>
   );
 }
 
 function App() {
+  const [restartCount, setRestartCount] = useState(0);
+  
+  const handleRestart = useCallback(() => {
+    // Увеличиваем счетчик перезапуска
+    setRestartCount(prev => prev + 1);
+    
+    // Вызываем глобальную функцию перезапуска, если она доступна
+    if (window.__restartSpaceship) {
+      window.__restartSpaceship();
+    }
+  }, []);
+  
   return (
     <div className="app-container">
       <div className="canvas-container">
-        <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
-          <color attach="background" args={['#000010']} />
-          <ambientLight intensity={0.2} />
-          <directionalLight position={[5, 3, 5]} intensity={1} />
-          <Planet />
-          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0.5} fade />
-          <OrbitControls />
-        </Canvas>
+        <Suspense fallback={<Loader />}>
+          <Canvas camera={{ position: [0, 5, 10], fov: 45 }}>
+            <color attach="background" args={['#000010']} />
+            <Scene key={restartCount} />
+          </Canvas>
+        </Suspense>
       </div>
       <div className="header">
         <h1>Полет в космос</h1>
         <p>Добро пожаловать в воркшоп по Three.js</p>
       </div>
+      <RestartButton onRestart={handleRestart} />
+      <Instructions />
     </div>
   );
 }

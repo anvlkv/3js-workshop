@@ -1,0 +1,22 @@
+# Three.js + React three fiber workshop for kids aged 10-12
+
+## General rules
+
+1. Create robust and idiomatic Three.js components using React Three Fiber.
+2. Ensure the code follows best practices and is easy to understand.
+3. All annotations and UI must be in Russian language.
+4. Do no more no less than what I asked.
+5. Follow the instructions carefully and ask questions if you need help.
+6. We are going to develop in small increments iteratively.
+
+## Workshop
+
+The goal of the workshop is to teach some basics of programming with Three.js and React Three Fiber.
+
+### Plot
+
+In the workshop we are going to develop a simple 3D scene with a planet and a spaceship. The spaceship will be controlled by the player using keyboard input.
+
+The spaceship may lift off from the planet, orbit it or leave its gravitational field.
+
+If there wasn't enough thrust, the spaceship will fall back to the planet.
