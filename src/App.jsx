@@ -29,11 +29,11 @@ function FallingBall({ position, size, color, isHeld = false }) {
   return (
     <mesh ref={ref} castShadow receiveShadow>
       <sphereGeometry args={[size, 16, 16]} />
-      <meshStandardMaterial 
-        color={color} 
+      <meshStandardMaterial
+        color={color}
         metalness={0.5}
         roughness={0.1}
-        emissive={isHeld ? color : "#000000"} 
+        emissive={isHeld ? color : "#000000"}
         emissiveIntensity={isHeld ? 0.5 : 0}
       />
     </mesh>
@@ -45,42 +45,42 @@ function Pool() {
   const poolSize = 8; // Size of the pool
   const wallThickness = 0.5;
   const wallHeight = 2;
-  
+
   // Floor
   const [floorRef] = usePlane(() => ({
     rotation: [-Math.PI / 2, 0, 0],
     position: [0, -5, 0],
     type: "Static",
-    material: { restitution: 0.5 } // Make the floor slightly bouncy
+    material: { restitution: 0.5 }, // Make the floor slightly bouncy
   }));
 
   // Walls - using useBox for each wall
   const [leftWallRef] = useBox(() => ({
-    position: [-poolSize/2 - wallThickness/2, -5 + wallHeight/2, 0],
+    position: [-poolSize / 2 - wallThickness / 2, -5 + wallHeight / 2, 0],
     args: [wallThickness, wallHeight, poolSize],
     type: "Static",
-    material: { restitution: 0.7 } // Make walls bouncier
+    material: { restitution: 0.7 }, // Make walls bouncier
   }));
-  
+
   const [rightWallRef] = useBox(() => ({
-    position: [poolSize/2 + wallThickness/2, -5 + wallHeight/2, 0],
+    position: [poolSize / 2 + wallThickness / 2, -5 + wallHeight / 2, 0],
     args: [wallThickness, wallHeight, poolSize],
     type: "Static",
-    material: { restitution: 0.7 }
+    material: { restitution: 0.7 },
   }));
-  
+
   const [backWallRef] = useBox(() => ({
-    position: [0, -5 + wallHeight/2, -poolSize/2 - wallThickness/2],
+    position: [0, -5 + wallHeight / 2, -poolSize / 2 - wallThickness / 2],
     args: [poolSize, wallHeight, wallThickness],
     type: "Static",
-    material: { restitution: 0.7 }
+    material: { restitution: 0.7 },
   }));
-  
+
   const [frontWallRef] = useBox(() => ({
-    position: [0, -5 + wallHeight/2, poolSize/2 + wallThickness/2],
+    position: [0, -5 + wallHeight / 2, poolSize / 2 + wallThickness / 2],
     args: [poolSize, wallHeight, wallThickness],
     type: "Static",
-    material: { restitution: 0.7 }
+    material: { restitution: 0.7 },
   }));
 
   return (
@@ -90,25 +90,25 @@ function Pool() {
         <planeGeometry args={[poolSize, poolSize]} />
         <meshStandardMaterial color="#303045" roughness={0.8} metalness={0.2} />
       </mesh>
-      
+
       {/* Left wall */}
       <mesh ref={leftWallRef} receiveShadow>
         <boxGeometry args={[wallThickness, wallHeight, poolSize]} />
-        <meshStandardMaterial color="#404060" roughness={0.5} metalness={0.3} />
+        <meshStandardMaterial color="#fa4060" roughness={0.5} metalness={0.3} />
       </mesh>
-      
+
       {/* Right wall */}
       <mesh ref={rightWallRef} receiveShadow>
         <boxGeometry args={[wallThickness, wallHeight, poolSize]} />
-        <meshStandardMaterial color="#404060" roughness={0.5} metalness={0.3} />
+        <meshStandardMaterial color="#fa4060" roughness={0.5} metalness={0.3} />
       </mesh>
-      
+
       {/* Back wall */}
       <mesh ref={backWallRef} receiveShadow>
         <boxGeometry args={[poolSize, wallHeight, wallThickness]} />
-        <meshStandardMaterial color="#404060" roughness={0.5} metalness={0.3} />
+        <meshStandardMaterial color="#fa4060" roughness={0.5} metalness={0.3} />
       </mesh>
-      
+
       {/* Front wall */}
       <mesh ref={frontWallRef} receiveShadow>
         <boxGeometry args={[poolSize, wallHeight, wallThickness]} />
@@ -128,19 +128,19 @@ function Scene({ isPressed, pressTime }) {
     if (isPressed && !heldBall) {
       const size = 0.2 + Math.random() * 0.3;
       const color = new THREE.Color().setHSL(Math.random(), 0.8, 0.6);
-      
+
       setHeldBall({
         key: Math.random(),
         size,
         color: color.getHex(),
         position: mouseRef.current,
-        isHeld: true
+        isHeld: true,
       });
     }
-    
+
     // Release the ball when mouse is released
     if (!isPressed && heldBall) {
-      setBalls(prev => [...prev, { ...heldBall, isHeld: false }]);
+      setBalls((prev) => [...prev, { ...heldBall, isHeld: false }]);
       setHeldBall(null);
     }
   }, [isPressed, heldBall]);
@@ -200,15 +200,15 @@ export default function App() {
       >
         {/* Improved lighting */}
         <ambientLight intensity={0.3} />
-        <directionalLight 
-          position={[10, 10, 5]} 
-          intensity={1} 
-          castShadow 
+        <directionalLight
+          position={[10, 10, 5]}
+          intensity={1}
+          castShadow
           shadow-mapSize={[2048, 2048]}
         />
         <pointLight position={[-5, 5, 5]} intensity={0.8} color="#ff9000" />
         <pointLight position={[5, 8, -5]} intensity={0.5} color="#4080ff" />
-        
+
         {/* Background environment */}
         <color attach="background" args={["#121218"]} />
         <fog attach="fog" args={["#121218", 15, 25]} />

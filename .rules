@@ -15,8 +15,4 @@ The goal of the workshop is to teach some basics of programming with Three.js an
 
 ### Plot
 
-In the workshop we are going to develop a simple 3D scene with a planet and a spaceship. The spaceship will be controlled by the player using keyboard input.
-
-The spaceship may lift off from the planet, orbit it or leave its gravitational field.
-
-If there wasn't enough thrust, the spaceship will fall back to the planet.
+In the workshop we are going to develop a simple 3D scene with a pool, and balls falling into it.
