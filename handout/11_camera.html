@@ -1,0 +1,177 @@
+<h1 id="камера-наш-взгляд-на-бассейн-с-шарами">Камера: Наш взгляд на
+бассейн с шарами 📷</h1>
+<h2 id="что-такое-камера-в-3d">Что такое камера в 3D?</h2>
+<p>Камера в 3D мире - это наши “глаза”, через которые мы смотрим на
+сцену. От того, как настроена камера, зависит, что именно мы видим и под
+каким углом.</p>
+<h2 id="типы-камер-в-three.js">Типы камер в Three.js</h2>
+<ul>
+<li><strong>PerspectiveCamera</strong> - перспективная камера, похожая
+на зрение человека (объекты вдали кажутся меньше) 👁️</li>
+<li><strong>OrthographicCamera</strong> - ортографическая камера (все
+объекты имеют один размер независимо от расстояния) 📏</li>
+</ul>
+<h2 id="настройка-камеры-для-нашего-бассейна">Настройка камеры для
+нашего бассейна</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">App</span>() {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Canvas </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      camera<span class="op">=</span>{{ </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">position</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">12</span>]<span class="op">,</span> <span class="co">// Положение камеры (x, y, z)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fov</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="co">// Угол обзора (Field of View)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">near</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="co">// Ближняя плоскость отсечения</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">far</span><span class="op">:</span> <span class="dv">1000</span> <span class="co">// Дальняя плоскость отсечения</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      }}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      {<span class="co">/* Наш бассейн и шары будут здесь */</span>}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>Canvas<span class="op">&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="что-означают-параметры-камеры">Что означают параметры
+камеры?</h2>
+<ul>
+<li><strong>position</strong> - где находится камера в 3D
+пространстве</li>
+<li><strong>fov</strong> - угол обзора в градусах (чем больше, тем шире
+обзор)</li>
+<li><strong>near</strong> и <strong>far</strong> - определяют, какие
+объекты будут видны (слишком близкие или далекие объекты не
+отображаются)</li>
+</ul>
+<h2 id="управление-камерой-с-помощью-orbitcontrols">Управление камерой с
+помощью OrbitControls</h2>
+<p>OrbitControls позволяет пользователю вращать, приближать и перемещать
+камеру с помощью мыши:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { OrbitControls } <span class="im">from</span> <span class="st">&quot;@react-three/drei&quot;</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">CameraControls</span>() {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>OrbitControls </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        enableZoom<span class="op">=</span>{<span class="kw">true</span>} <span class="co">// Разрешить приближение/удаление</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        enableRotate<span class="op">=</span>{<span class="kw">true</span>} <span class="co">// Разрешить вращение</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        enablePan<span class="op">=</span>{<span class="kw">true</span>} <span class="co">// Разрешить перемещение</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        maxDistance<span class="op">=</span>{<span class="dv">20</span>} <span class="co">// Максимальное расстояние для отдаления</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        minDistance<span class="op">=</span>{<span class="dv">2</span>} <span class="co">// Минимальное расстояние для приближения</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="op">/&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="предустановленные-ракурсы-камеры">Предустановленные ракурсы
+камеры</h2>
+<p>Мы можем создать кнопки для быстрого перемещения камеры в интересные
+позиции:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">CameraPresets</span>({ setCameraPosition }) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>div className<span class="op">=</span><span class="st">&quot;camera-presets&quot;</span><span class="op">&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>h3<span class="op">&gt;</span>Выберите <span class="dt">ракурс</span><span class="op">:&lt;/</span>h3<span class="op">&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>button onClick<span class="op">=</span>{() <span class="kw">=&gt;</span> <span class="fu">setCameraPosition</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">0</span>])}<span class="op">&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        Вид сверху 🔭</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>button<span class="op">&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>button onClick<span class="op">=</span>{() <span class="kw">=&gt;</span> <span class="fu">setCameraPosition</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">10</span>])}<span class="op">&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        Вид сбоку 👀</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>button<span class="op">&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>button onClick<span class="op">=</span>{() <span class="kw">=&gt;</span> <span class="fu">setCameraPosition</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">15</span>])}<span class="op">&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        Вид спереди 🎯</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>button<span class="op">&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>button onClick<span class="op">=</span>{() <span class="kw">=&gt;</span> <span class="fu">setCameraPosition</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">12</span>])}<span class="op">&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        Стандартный вид 🏠</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>button<span class="op">&gt;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="анимация-камеры">Анимация камеры</h2>
+<p>Мы можем создать плавное перемещение камеры между разными
+точками:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">AnimatedCamera</span>() {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cameraRef <span class="op">=</span> <span class="fu">useRef</span>()<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [target<span class="op">,</span> setTarget] <span class="op">=</span> <span class="fu">useState</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">12</span>])<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Анимируем перемещение камеры</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">useFrame</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (cameraRef<span class="op">.</span><span class="at">current</span>) {</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Плавно перемещаем камеру к целевой позиции</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="at">position</span><span class="op">.</span><span class="at">x</span> <span class="op">+=</span> (target[<span class="dv">0</span>] <span class="op">-</span> cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="at">position</span><span class="op">.</span><span class="at">x</span>) <span class="op">*</span> <span class="fl">0.05</span><span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="at">position</span><span class="op">.</span><span class="at">y</span> <span class="op">+=</span> (target[<span class="dv">1</span>] <span class="op">-</span> cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="at">position</span><span class="op">.</span><span class="at">y</span>) <span class="op">*</span> <span class="fl">0.05</span><span class="op">;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="at">position</span><span class="op">.</span><span class="at">z</span> <span class="op">+=</span> (target[<span class="dv">2</span>] <span class="op">-</span> cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="at">position</span><span class="op">.</span><span class="at">z</span>) <span class="op">*</span> <span class="fl">0.05</span><span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Смотрим на центр бассейна</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="fu">lookAt</span>(<span class="dv">0</span><span class="op">,</span> <span class="op">-</span><span class="dv">3</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="op">&lt;</span>PerspectiveCamera ref<span class="op">=</span>{cameraRef} makeDefault position<span class="op">=</span>{[<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">12</span>]} fov<span class="op">=</span>{<span class="dv">50</span>} <span class="op">/&gt;;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="следование-камеры-за-шаром">Следование камеры за шаром</h2>
+<p>Камера может следовать за выбранным шаром, чтобы не терять его из
+виду:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">FollowBallCamera</span>({ targetBall }) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cameraRef <span class="op">=</span> <span class="fu">useRef</span>()<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">useFrame</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (targetBall <span class="op">&amp;&amp;</span> cameraRef<span class="op">.</span><span class="at">current</span>) {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Получаем позицию шара</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> ballPosition <span class="op">=</span> targetBall<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="at">position</span><span class="op">;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Устанавливаем камеру немного позади и выше шара</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="at">position</span><span class="op">.</span><span class="at">x</span> <span class="op">=</span> ballPosition<span class="op">.</span><span class="at">x</span><span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="at">position</span><span class="op">.</span><span class="at">y</span> <span class="op">=</span> ballPosition<span class="op">.</span><span class="at">y</span> <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="at">position</span><span class="op">.</span><span class="at">z</span> <span class="op">=</span> ballPosition<span class="op">.</span><span class="at">z</span> <span class="op">+</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Смотрим на шар</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      cameraRef<span class="op">.</span><span class="at">current</span><span class="op">.</span><span class="fu">lookAt</span>(ballPosition)<span class="op">;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="op">&lt;</span>PerspectiveCamera ref<span class="op">=</span>{cameraRef} makeDefault position<span class="op">=</span>{[<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">12</span>]} fov<span class="op">=</span>{<span class="dv">50</span>} <span class="op">/&gt;;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="интерактивный-выбор-шара-для-наблюдения">Интерактивный выбор
+шара для наблюдения</h2>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">BallSelector</span>({ balls<span class="op">,</span> setTargetBall }) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>div className<span class="op">=</span><span class="st">&quot;ball-selector&quot;</span><span class="op">&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>h3<span class="op">&gt;</span>Следить за <span class="dt">шаром</span><span class="op">:&lt;/</span>h3<span class="op">&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>select onChange<span class="op">=</span>{(e) <span class="kw">=&gt;</span> <span class="fu">setTargetBall</span>(balls[e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>])}<span class="op">&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>option value<span class="op">=</span><span class="st">&quot;&quot;</span><span class="op">&gt;</span>Свободная камера<span class="op">&lt;/</span>option<span class="op">&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        {balls<span class="op">.</span><span class="fu">map</span>((ball<span class="op">,</span> index) <span class="kw">=&gt;</span> (</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>          <span class="op">&lt;</span>option key<span class="op">=</span>{index} value<span class="op">=</span>{index}<span class="op">&gt;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            Шар #{index <span class="op">+</span> <span class="dv">1</span>} ({ball<span class="op">.</span><span class="at">color</span>})</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>          <span class="op">&lt;/</span>option<span class="op">&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        ))}</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>select<span class="op">&gt;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="добавление-эффектов-постобработки">Добавление эффектов
+постобработки</h2>
+<p>Используя эффекты постобработки, мы можем улучшить визуальное
+восприятие нашей сцены:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { EffectComposer<span class="op">,</span> Bloom<span class="op">,</span> DepthOfField } <span class="im">from</span> <span class="st">&quot;@react-three/postprocessing&quot;</span><span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">CameraEffects</span>() {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>EffectComposer<span class="op">&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Bloom intensity<span class="op">=</span>{<span class="fl">0.5</span>} luminanceThreshold<span class="op">=</span>{<span class="fl">0.2</span>} <span class="op">/&gt;</span> {<span class="co">/* Эффект свечения */</span>}</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>DepthOfField</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        focusDistance<span class="op">=</span>{<span class="dv">0</span>} <span class="co">// Расстояние фокуса</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        focalLength<span class="op">=</span>{<span class="fl">0.02</span>} <span class="co">// Фокусное расстояние</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        bokehScale<span class="op">=</span>{<span class="dv">2</span>} <span class="co">// Интенсивность размытия</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      <span class="op">/&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>EffectComposer<span class="op">&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="экспериментируй-с-камерой">Экспериментируй с камерой!</h2>
+<p>Попробуй создать свои уникальные ракурсы для наблюдения за бассейном
+и шарами: - Настрой камеру так, чтобы видеть бассейн сверху - Создай
+эффект “подводной” камеры, которая смотрит из дна бассейна - Добавь
+функцию “замедленной съемки” при интересных столкновениях шаров - Создай
+режим “от первого лица”, где камера находится на одном из шаров</p>
+<p>Разные ракурсы позволят тебе увидеть физику шаров с новых интересных
+сторон! 🎥✨🎬</p>

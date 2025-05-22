@@ -1,0 +1,106 @@
+<h1 id="создание-бассейна-наш-первый-3d-объект">Создание бассейна: Наш
+первый 3D объект 🏊‍♂️</h1>
+<h2 id="что-такое-бассейн-в-нашем-проекте">Что такое бассейн в нашем
+проекте?</h2>
+<p>Бассейн - это основной элемент нашей 3D сцены, где будут падать и
+отскакивать шары. Он состоит из дна и четырех стенок, образующих
+замкнутое пространство.</p>
+<h2 id="как-создать-бассейн-в-three.js">Как создать бассейн в
+Three.js?</h2>
+<p>Бассейн будет состоять из нескольких частей: - Дно (плоская
+поверхность) - Четыре стенки (прямоугольные блоки)</p>
+<h2 id="код-для-создания-бассейна">Код для создания бассейна</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">Pool</span>() {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> poolSize <span class="op">=</span> <span class="dv">8</span><span class="op">;</span> <span class="co">// Размер бассейна</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> wallThickness <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span> <span class="co">// Толщина стенок</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> wallHeight <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> <span class="co">// Высота стенок</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Используем физику для создания дна</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [floorRef] <span class="op">=</span> <span class="fu">usePlane</span>(() <span class="kw">=&gt;</span> ({</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">rotation</span><span class="op">:</span> [<span class="op">-</span><span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span> <span class="co">// Повернуть плоскость горизонтально</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">position</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="op">-</span><span class="dv">5</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span> <span class="co">// Положение дна</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;Static&quot;</span><span class="op">,</span> <span class="co">// Дно неподвижно</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">material</span><span class="op">:</span> { <span class="dt">restitution</span><span class="op">:</span> <span class="fl">0.5</span> }<span class="op">,</span> <span class="co">// Дно немного пружинит</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Создаем стенки бассейна</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [leftWallRef] <span class="op">=</span> <span class="fu">useBox</span>(() <span class="kw">=&gt;</span> ({</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">position</span><span class="op">:</span> [<span class="op">-</span>poolSize <span class="op">/</span> <span class="dv">2</span> <span class="op">-</span> wallThickness <span class="op">/</span> <span class="dv">2</span><span class="op">,</span> <span class="op">-</span><span class="dv">5</span> <span class="op">+</span> wallHeight <span class="op">/</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">args</span><span class="op">:</span> [wallThickness<span class="op">,</span> wallHeight<span class="op">,</span> poolSize]<span class="op">,</span> <span class="co">// Размеры стенки</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;Static&quot;</span><span class="op">,</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">material</span><span class="op">:</span> { <span class="dt">restitution</span><span class="op">:</span> <span class="fl">0.7</span> }<span class="op">,</span> <span class="co">// Стенки сильнее пружинят</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Аналогично для остальных стенок</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [rightWallRef] <span class="op">=</span> <span class="fu">useBox</span>(() <span class="kw">=&gt;</span> ({</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">position</span><span class="op">:</span> [poolSize <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> wallThickness <span class="op">/</span> <span class="dv">2</span><span class="op">,</span> <span class="op">-</span><span class="dv">5</span> <span class="op">+</span> wallHeight <span class="op">/</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">args</span><span class="op">:</span> [wallThickness<span class="op">,</span> wallHeight<span class="op">,</span> poolSize]<span class="op">,</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;Static&quot;</span><span class="op">,</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="dt">material</span><span class="op">:</span> { <span class="dt">restitution</span><span class="op">:</span> <span class="fl">0.7</span> }<span class="op">,</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ... еще две стенки (передняя и задняя)</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;&gt;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>      {<span class="co">/* Дно бассейна */</span>}</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>mesh ref<span class="op">=</span>{floorRef} receiveShadow<span class="op">&gt;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>planeGeometry args<span class="op">=</span>{[poolSize<span class="op">,</span> poolSize]} <span class="op">/&gt;</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>meshStandardMaterial color<span class="op">=</span><span class="st">&quot;#303045&quot;</span> roughness<span class="op">=</span>{<span class="fl">0.8</span>} metalness<span class="op">=</span>{<span class="fl">0.2</span>} <span class="op">/&gt;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>mesh<span class="op">&gt;</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>      {<span class="co">/* Левая стенка */</span>}</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>mesh ref<span class="op">=</span>{leftWallRef} receiveShadow<span class="op">&gt;</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>boxGeometry args<span class="op">=</span>{[wallThickness<span class="op">,</span> wallHeight<span class="op">,</span> poolSize]} <span class="op">/&gt;</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>meshStandardMaterial color<span class="op">=</span><span class="st">&quot;#fa4060&quot;</span> roughness<span class="op">=</span>{<span class="fl">0.5</span>} metalness<span class="op">=</span>{<span class="fl">0.3</span>} <span class="op">/&gt;</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>mesh<span class="op">&gt;</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>      {<span class="co">/* Правая стенка */</span>}</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>mesh ref<span class="op">=</span>{rightWallRef} receiveShadow<span class="op">&gt;</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>boxGeometry args<span class="op">=</span>{[wallThickness<span class="op">,</span> wallHeight<span class="op">,</span> poolSize]} <span class="op">/&gt;</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>meshStandardMaterial color<span class="op">=</span><span class="st">&quot;#fa4060&quot;</span> roughness<span class="op">=</span>{<span class="fl">0.5</span>} metalness<span class="op">=</span>{<span class="fl">0.3</span>} <span class="op">/&gt;</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>mesh<span class="op">&gt;</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>      {<span class="co">/* ... еще две стенки */</span>}</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/&gt;</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="что-происходит-в-этом-коде">Что происходит в этом коде?</h2>
+<ol type="1">
+<li><strong>usePlane</strong> и <strong>useBox</strong> - это функции из
+библиотеки react-three-cannon, которые добавляют физику нашим
+объектам</li>
+<li><strong>mesh</strong> - это объект Three.js, который объединяет
+геометрию (форму) и материал (внешний вид)</li>
+<li><strong>receiveShadow</strong> - позволяет объекту принимать тени от
+других объектов</li>
+<li><strong>material</strong> - определяет, как объект выглядит (цвет,
+блеск, шероховатость)</li>
+</ol>
+<h2 id="что-такое-физика-в-нашем-проекте">Что такое физика в нашем
+проекте?</h2>
+<p>Физика позволяет объектам в нашей сцене вести себя реалистично: -
+Шары падают под действием гравитации - Объекты сталкиваются и
+отскакивают друг от друга - Материалы могут быть более или менее
+упругими (restitution)</p>
+<h2 id="что-такое-параметры-материала">Что такое параметры
+материала?</h2>
+<ul>
+<li><strong>color</strong> - цвет объекта</li>
+<li><strong>roughness</strong> - шероховатость поверхности (0 - идеально
+гладкая, 1 - очень шероховатая)</li>
+<li><strong>metalness</strong> - металличность поверхности (0 -
+неметаллическая, 1 - полностью металлическая)</li>
+</ul>
+<h2 id="давай-добавим-бассейн-в-нашу-сцену">Давай добавим бассейн в нашу
+сцену!</h2>
+<p>Теперь мы готовы добавить бассейн в наш проект. Это будет первый шаг
+к созданию нашего интерактивного 3D мира с физикой!</p>
+<h2 id="идеи-для-улучшения">Идеи для улучшения</h2>
+<ul>
+<li>Добавить текстуру воды на дно бассейна</li>
+<li>Сделать стенки полупрозрачными</li>
+<li>Добавить декоративные элементы вокруг бассейна</li>
+<li>Изменить цвета стенок для более интересного дизайна</li>
+</ul>

@@ -1,0 +1,54 @@
+<h1 id="шаблон-проекта-наша-стартовая-площадка">Шаблон проекта: Наша
+стартовая площадка 🏊‍♂️</h1>
+<h2 id="что-такое-шаблон-проекта">Что такое шаблон проекта?</h2>
+<p>Шаблон проекта - это готовая заготовка с настроенными файлами и
+папками, чтобы мы могли сразу начать создавать наш бассейн с шарами. Это
+как набор для сборки, где уже все детали подготовлены!</p>
+<h2 id="как-выглядит-наш-шаблон">Как выглядит наш шаблон?</h2>
+<ul>
+<li><strong>src/</strong> - папка с исходным кодом нашего проекта
+📁</li>
+<li><strong>components/</strong> - здесь будут жить наши React
+компоненты 🧩</li>
+<li><strong>assets/</strong> - тут хранятся изображения и текстуры
+🖼️</li>
+<li><strong>App.jsx</strong> - главный файл, соединяющий всё вместе
+🔗</li>
+</ul>
+<h2 id="что-уже-есть-в-шаблоне">Что уже есть в шаблоне?</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// В файле App.jsx уже настроена базовая 3D сцена с физикой</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">App</span>() {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>Canvas camera<span class="op">=</span>{{ <span class="dt">position</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">12</span>]<span class="op">,</span> <span class="dt">fov</span><span class="op">:</span> <span class="dv">50</span> }} shadows<span class="op">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>ambientLight intensity<span class="op">=</span>{<span class="fl">0.3</span>} <span class="op">/&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>directionalLight position<span class="op">=</span>{[<span class="dv">10</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">5</span>]} intensity<span class="op">=</span>{<span class="dv">1</span>} castShadow <span class="op">/&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Physics gravity<span class="op">=</span>{[<span class="dv">0</span><span class="op">,</span> <span class="op">-</span><span class="fl">9.81</span><span class="op">,</span> <span class="dv">0</span>]}<span class="op">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        {<span class="co">/* Сюда мы добавим наш бассейн и шары */</span>}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>Physics<span class="op">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>Canvas<span class="op">&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="библиотеки-в-нашем-шаблоне">Библиотеки в нашем шаблоне</h2>
+<ul>
+<li><strong>React</strong> - для создания интерфейса 🧩</li>
+<li><strong>Three.js</strong> - для 3D графики 🎮</li>
+<li><strong>React Three Fiber</strong> - мост между React и Three.js
+🌉</li>
+<li><strong>React Three Cannon</strong> - для добавления физики
+(гравитации, столкновений) 🎯</li>
+<li><strong>Vite</strong> - быстрый инструмент для разработки ⚡</li>
+</ul>
+<h2 id="почему-шаблон-проекта---это-здорово">Почему шаблон проекта - это
+здорово?</h2>
+<ul>
+<li>Нам не нужно настраивать всё с нуля - экономим время! ⏱️</li>
+<li>Все библиотеки уже подключены и работают вместе 🔌</li>
+<li>Мы сразу можем начать создавать наш бассейн и шары 🏊‍♂️</li>
+<li>Легко добавлять новые элементы в проект 🧰</li>
+</ul>
+<h2 id="готов-исследовать-шаблон">Готов исследовать шаблон?</h2>
+<p>Давай откроем шаблон и посмотрим, что внутри! Это будет наша
+творческая мастерская, где мы создадим удивительный виртуальный бассейн
+с разноцветными шарами! 🔴🟢🔵👨‍💻</p>
